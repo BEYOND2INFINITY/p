@@ -172,8 +172,8 @@ VERSION:3.0
 FN:C.E.O @precious_couner
 TEL:+255653526556
 EMAIL:dpreciouscouner@gmail.com
-ADR:;;Lumumba Street, Opposite na Mchapakazi;Mwanza;Tanzania
-NOTE:Wauzaji na wasambazaji wa vifaa vya magari
+ADR:;;Kona ya Bwiru;Mwanza;Tanzania
+NOTE:Wauzaji wa nguo za mazoezi
 END:VCARD`;
   const blob = new Blob([vCard], { type: 'text/vcard' });
   const url = URL.createObjectURL(blob);
@@ -188,7 +188,7 @@ function toggleInstructions() {
   box.style.display = (box.style.display === 'block') ? 'none' : 'block';
 }
 
-// Social functions
+// Social functions - FIXED as requested
 function openAppOrWeb(appUrl, webUrl) {
   const start = Date.now();
   window.location = appUrl;
@@ -197,24 +197,54 @@ function openAppOrWeb(appUrl, webUrl) {
   }, 500);
 }
 
-function openFacebook(){openAppOrWeb("fb://page/100090000000000","https://www.facebook.com/dpreciousfb/");}
-function openTikTok(){const u="the_dprecious02";openAppOrWeb(`snssdk1233://user/profile/${u}`,`https://www.tiktok.com/@${u}`);}
-function openSnapchat(){const u="the_dprecious";openAppOrWeb(`snapchat://add/${u}`,`https://www.snapchat.com/add/${u}`);}
-function openInstagram(){const u="the_dprecious";openAppOrWeb(`instagram://user?username=${u}`,`https://www.instagram.com/${u}`);}
-function openWhatsApp(){const p="255653526556";openAppOrWeb(`whatsapp://send?phone=${p}`,`https://wa.me/${p}`);}
-function openEmail(){window.location=`mailto:dpreciouscouner@gmail.com?subject=Inquiry&body=Hello Precious Couner`; }
+// Facebook - FIXED: Only opens web link
+function openFacebook() {
+  window.open("https://www.facebook.com/dpreciousfb/", "_blank");
+}
+
+// TikTok - FIXED: Simplified to avoid fallback issues
+function openTikTok() {
+  window.open("https://www.tiktok.com/@the_dprecious02", "_blank");
+}
+
+// Instagram - FIXED: Only opens web link
+function openInstagram() {
+  window.open("https://www.instagram.com/the_dprecious", "_blank");
+}
+
+// Other functions remain unchanged
+function openSnapchat() {
+  const u = "the_dprecious";
+  openAppOrWeb(`snapchat://add/${u}`, `https://www.snapchat.com/add/${u}`);
+}
+
+function openWhatsApp() {
+  const p = "255653526556";
+  openAppOrWeb(`whatsapp://send?phone=${p}`, `https://wa.me/${p}`);
+}
+
+function openEmail() {
+  window.location = `mailto:dpreciouscouner@gmail.com?subject=Inquiry&body=Hello Precious Couner`;
+}
 
 function openLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(pos => {
-      const {latitude, longitude} = pos.coords;
-      window.open(`https://www.google.com/maps?q=${latitude},${longitude}`,"_blank");
-    }, ()=>alert("Location access denied"));
-  } else { alert("Geolocation not supported"); }
+      const { latitude, longitude } = pos.coords;
+      window.open(`https://www.google.com/maps?q=${latitude},${longitude}`, "_blank");
+    }, () => alert("Location access denied"));
+  } else {
+    alert("Geolocation not supported");
+  }
 }
 
-function makeCall() { window.location.href = "tel:+255653526556"; }
-function sendMessage() { window.location.href = "sms:+255653526556?body=habari C.E.O @Precious_couner"; }
+function makeCall() {
+  window.location.href = "tel:+255653526556";
+}
+
+function sendMessage() {
+  window.location.href = "sms:+255653526556?body=habari C.E.O @Precious_couner";
+}
 
 // Theme functionality - SIMPLE and INSTANT
 const themes = ["default", "neon", "glow", "sporty"];
@@ -239,18 +269,16 @@ function changeTheme() {
 }
 
 // Loader
-window.addEventListener("load",()=>{
-  setTimeout(()=>{
-    document.getElementById("loader").style.display="none";
-    document.getElementById("main-content").style.display="flex";
-  },2000);
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("main-content").style.display = "flex";
+  }, 2000);
 });
 
 // Footer year
-document.getElementById("year").textContent=new Date().getFullYear();
+document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
 </html>
-
-
