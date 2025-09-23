@@ -1,104 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Precious Couner</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Precious Couner</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-    <defs>
-      <linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'>
-        <stop offset='0%' stop-color='%2300cc99'/>
-        <stop offset='100%' stop-color='%2300bfff'/>
-      </linearGradient>
-    </defs>
-    <rect width='100' height='100' fill='url(%23grad)' rx='20'/>
-    <text x='50' y='60' font-family='Arial, sans-serif' font-size='40' font-weight='bold' fill='white' text-anchor='middle'>PC</text>
-  </svg>">
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+<defs>
+<linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'>
+<stop offset='0%' stop-color='%2300cc99'/>
+<stop offset='100%' stop-color='%2300bfff'/>
+</linearGradient>
+</defs>
+<rect width='100' height='100' fill='url(%23grad)' rx='20'/>
+<text x='50' y='60' font-family='Arial, sans-serif' font-size='40' font-weight='bold' fill='white' text-anchor='middle'>PC</text>
+</svg>">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- AOS -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #1e1e1e, #2c3e50);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-      color: white;
-      transition: background 0.6s ease, color 0.6s ease;
-    }
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #1e1e1e, #2c3e50);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  transition: background 0.6s ease, color 0.6s ease;
+}
+main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; padding: 20px; }
+footer { background:#000; color:white; text-align:center; padding:12px 0; font-size:14px; }
 
-    /* Loader */
-    #loader { position:fixed; top:0; left:0; width:100%; height:100%; background:#1e1e1e;
-      display:flex; justify-content:center; align-items:center; z-index:9999; }
-    .loader-dot { width:20px; height:20px; margin:0 5px; background:#00cc99; border-radius:50%; animation:blink 1s infinite; }
-    .loader-dot:nth-child(2){animation-delay:.2s;} .loader-dot:nth-child(3){animation-delay:.4s;}
-    @keyframes blink {0%,100%{opacity:0.2;}50%{opacity:1;}}
+/* Loader */
+#loader { position:fixed; top:0; left:0; width:100%; height:100%; background:#1e1e1e; display:flex; justify-content:center; align-items:center; z-index:9999; }
+.loader-dot { width:20px; height:20px; margin:0 5px; background:#00cc99; border-radius:50%; animation:blink 1s infinite; }
+.loader-dot:nth-child(2){animation-delay:.2s;} .loader-dot:nth-child(3){animation-delay:.4s;}
+@keyframes blink {0%,100%{opacity:0.2;}50%{opacity:1;}}
 
-    /* Container */
-    .container { flex:1; display:none; flex-direction:column; justify-content:center; align-items:center;
-      text-align:center; padding:30px; background:rgba(0,0,0,0.4); border-radius:20px;
-      backdrop-filter:blur(10px); box-shadow:0 8px 20px rgba(0,0,0,0.6); margin:20px; }
-    .marquee-container { width:100%; overflow:hidden; margin-bottom:30px; }
-    .brand-label { font-size:3rem; font-weight:bold; background:linear-gradient(270deg,#00cc99,#00bfff,#ffdd00,#ff66cc);
-      background-size:600% 600%; -webkit-background-clip:text; background-clip:text; color:transparent;
-      animation:gradientAnim 8s ease infinite, marquee 15s linear infinite; white-space:nowrap; display:inline-block; }
-    @keyframes gradientAnim {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-    @keyframes marquee {0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+/* Container styling */
+.container { display:none; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:30px; background:rgba(0,0,0,0.4); border-radius:20px; backdrop-filter:blur(10px); box-shadow:0 8px 20px rgba(0,0,0,0.6); width:100%; max-width:800px; transition: all 0.6s ease; }
 
-    h1 { font-size:2.2rem; margin-bottom:30px; text-shadow:0 2px 5px rgba(0,0,0,0.6); }
+/* Theme-specific container styles */
+.container.default { background: rgba(0,0,0,0.4); }
+.container.neon { background: rgba(0,30,60,0.6); box-shadow: 0 8px 20px rgba(0,234,255,0.3); }
+.container.glow { background: rgba(26,0,13,0.6); box-shadow: 0 8px 20px rgba(255,64,129,0.3); }
+.container.sporty { background: rgba(15,50,30,0.6); box-shadow: 0 8px 20px rgba(255,215,0,0.3); }
 
-    /* Icons */
-    .icons { display:flex; gap:30px; flex-wrap:wrap; justify-content:center; margin-bottom:40px; }
-    .icon-item { display:flex; flex-direction:column; align-items:center; gap:8px; }
-    .icons a { font-size:45px; transition:transform .3s, filter .3s; cursor:pointer; }
-    .icons a:hover { transform:scale(1.3) rotate(5deg); filter:brightness(1.3) drop-shadow(0 0 8px #00cc99) drop-shadow(0 0 12px #00bfff); }
-    .icon-label{font-size:14px;color:white;}
+/* Brand & Header */
+.marquee-container { width:100%; overflow:hidden; margin-bottom:30px; }
+.brand-label { font-size:3rem; font-weight:bold; background:linear-gradient(270deg,#00cc99,#00bfff,#ffdd00,#ff66cc); background-size:600% 600%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradientAnim 8s ease infinite, marquee 15s linear infinite; white-space:nowrap; display:inline-block; }
+@keyframes gradientAnim {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes marquee {0%{transform:translateX(100%);}100%{transform:translateX(-100%);} }
+h1 { font-size:2.2rem; margin-bottom:30px; text-shadow:0 2px 5px rgba(0,0,0,0.6); }
 
-    /* Social colors */
-    .fa-facebook{color:#1877F2;} .fa-snapchat{color:#FFFC00;} .fa-tiktok{color:#000;}
-    .fa-instagram{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285AEB 90%);
-      -webkit-background-clip:text; color:transparent;}
-    .fa-whatsapp{color:#25D366;} .fa-envelope{color:#EA4335;} .fa-map-marker-alt{color:#FF0000;}
-    .fa-phone{color:#00cc99;} .fa-comment{color:#00bfff;}
+/* Icons */
+.icons { display:flex; gap:30px; flex-wrap:wrap; justify-content:center; margin-bottom:40px; }
+.icon-item { display:flex; flex-direction:column; align-items:center; gap:8px; }
+.icons a { font-size:45px; transition:transform .3s, filter .3s; cursor:pointer; }
+.icons a:hover { transform:scale(1.3) rotate(5deg); filter:brightness(1.3) drop-shadow(0 0 8px #00cc99) drop-shadow(0 0 12px #00bfff); }
+.icon-label{font-size:14px;color:white;}
 
-    /* vCard button */
-    .vcard-button { background:#00cc99; border:none; padding:14px 28px; font-size:18px;
-      border-radius:8px; color:white; margin-top:20px; cursor:pointer; transition:.3s;
-      box-shadow:0 6px 15px rgba(0,0,0,0.3); }
-    .vcard-button:hover { background:#009977; transform:translateY(-3px); }
+/* Social colors */
+.fa-facebook{color:#1877F2;} .fa-snapchat{color:#FFFC00;} .fa-tiktok{color:#000;}
+.fa-instagram{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285AEB 90%); -webkit-background-clip:text; color:transparent;}
+.fa-whatsapp{color:#25D366;} .fa-envelope{color:#EA4335;} .fa-map-marker-alt{color:#FF0000;}
+.fa-phone{color:#00cc99;} .fa-comment{color:#00bfff;}
 
-    /* Instructions */
-    .instructions { background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); padding:25px; border-radius:15px;
-      margin:20px auto; max-width:650px; display:none; box-shadow:0 6px 15px rgba(0,0,0,0.5); }
-    .instructions h3{color:#00cc99; margin-bottom:15px;} .instructions ol{ text-align:left; margin-left:20px; line-height:1.7; }
-    .show-instructions{background:#2c3e50; color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; margin-top:15px;}
-    .show-instructions:hover{background:#1f2a38;}
+/* vCard & Instructions */
+.vcard-button { background:#00cc99; border:none; padding:14px 28px; font-size:18px; border-radius:8px; color:white; margin-top:20px; cursor:pointer; transition:.3s; box-shadow:0 6px 15px rgba(0,0,0,0.3); }
+.vcard-button:hover { background:#009977; transform:translateY(-3px); }
+.instructions { background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); padding:25px; border-radius:15px; margin:20px 0; width:100%; max-width:650px; display:none; box-shadow:0 6px 15px rgba(0,0,0,0.5); }
+.instructions h3{color:#00cc99; margin-bottom:15px;} 
+.instructions ol{ text-align:left; margin-left:20px; line-height:1.7; }
+.show-instructions{background:#2c3e50; color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; margin-top:15px;}
+.show-instructions:hover{background:#1f2a38;}
 
-    footer { background:#000; color:white; text-align:center; padding:12px 0; font-size:14px; }
-    #themeBtn{position:fixed; top:15px; right:15px; padding:8px 16px; border:none; border-radius:6px; background:#00cc99; color:white; cursor:pointer;}
-    #themeBtn:hover{background:#009977; transform:scale(1.05);}
-    body.default{background:linear-gradient(135deg,#1e1e1e,#2c3e50);}
-    body.neon{background:linear-gradient(135deg,#000428,#004e92);color:#00eaff;}
-    body.glow{background:#1a1a1a;color:#ff4081;}
-    body.sporty{background:linear-gradient(135deg,#0f9d58,#4285f4);color:#ffd700;}
-  </style>
+/* Theme button */
+#themeBtn{position:fixed; top:15px; right:15px; padding:8px 16px; border:none; border-radius:6px; background:#00cc99; color:white; cursor:pointer;}
+#themeBtn:hover{background:#009977; transform:scale(1.05);}
+
+/* Body themes */
+body.default{background:linear-gradient(135deg,#1e1e1e,#2c3e50);}
+body.neon{background:linear-gradient(135deg,#000428,#004e92);color:#00eaff;}
+body.glow{background:#1a1a1a;color:#ff4081;}
+body.sporty{background:linear-gradient(135deg,#0f9d58,#4285f4);color:#ffd700;}
+</style>
 </head>
 <body class="default">
 
-  <!-- Loader -->
-  <div id="loader"><div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div></div>
+<div id="loader"><div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div></div>
 
-  <!-- Main Content -->
-  <div class="container" id="main-content" data-aos="fade-up">
+<main>
+  <div id="main-content" class="container default" data-aos="fade-up">
     <div class="marquee-container">
       <div class="brand-label">Precious_Couner <small><i>"dress. train. shine."</i></small></div>
     </div>
@@ -117,40 +116,44 @@
     </div>
 
     <button class="vcard-button" onclick="addToContacts()">Phone</button>
-    <button class="show-instructions" onclick="toggleInstructions()">Jinsi ya kusave mawasiliano yetu</button>
+    <button class="show-instructions" onclick="toggleInstructions()">Kujua jinsi ya kusave mawasiliano yetu, nibofye</button>
 
     <div class="instructions" id="instructions" data-aos="fade-left">
-      <h3>Jinsi ya kuhifadhi mawasiliano yetu kwa urahisi</h3>
+      <h3>📲 Jinsi ya Kuhifadhi Mawasiliano Yetu kwa Urahisi</h3>
       <ol>
-        <li>Bofya kitufe hapo juu kimeandikwa (Phone)</li>
-        <li>Faili <u>dprecious_contact.vcf</u> litapakuliwa kwenye simu yako</li>
-        <li>Nenda "File Manager" → "Downloads"</li>
-        <li>Lifungue, kisha bonyeza kuhifadhi mawasiliano</li>
+        <li>👉 Bofya kitufe kilichoandikwa <strong>"Phone"</strong> hapo juu.</li>
+        <li>💾 Faili <u>dprecious_contact.vcf</u> itapakuliwa moja kwa moja kwenye simu yako.</li>
+        <li>📂 <strong>Njia 1 – Kutoka kwenye File Manager:</strong>
+          <ol type="a">
+            <li>📁 Nenda kwenye <strong>File Manager</strong> au folda ya <strong>Downloads</strong>.</li>
+            <li>📄 Fungua faili <u>dprecious_contact.vcf</u> kisha bonyeza <strong>"Save Contact"</strong> au <strong>"Hifadhi Mawasiliano"</strong>.</li>
+          </ol>
+        </li>
+        <li>🌐 <strong>Njia 2 – Kutoka Chrome:</strong>
+          <ol type="a">
+            <li>⚙️ Bofya alama ya <strong>⋮ vidoti vitatu</strong> kwenye Chrome (menu).</li>
+            <li>⬇️ Chagua <strong>"Downloads"</strong> ili kuona faili iliyopakuliwa.</li>
+            <li>📄 Fungua <u>dprecious_contact.vcf</u> kisha bonyeza <strong>"Save Contact"</strong>.</li>
+          </ol>
+        </li>
+        <li>📝 Jina la mawasiliano litakuwa: <strong>C.E.O @precious_couner</strong>.</li>
+        <li>🎉 Sasa unaweza kupata mawasiliano yetu moja kwa moja kwenye orodha ya simu yako!</li>
       </ol>
+      <p><em>Tipi:</em> ✅ Hakikisha simu yako ina ruhusa ya kuingiza mawasiliano kutoka faili ili hatua hii ifanyike kwa urahisi.</p>
     </div>
   </div>
+</main>
 
-  <footer>© <span id="year"></span> precious_couner. All rights reserved.</footer>
-  <button id="themeBtn">Theme</button>
+<footer>© <span id="year"></span> precious_couner. All rights reserved.</footer>
+<button id="themeBtn">Theme</button>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 1200 });
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({ duration: 1200 });
 
-    // Try app first, fallback to web
-    function openAppOrWeb(appUrl, webUrl) {
-      const start = Date.now();
-      window.location = appUrl;
-      setTimeout(() => {
-        if (Date.now() - start < 600) {
-          window.open(webUrl, "_blank");
-        }
-      }, 500);
-    }
-
-    // vCard
-    function addToContacts() {
-      const vCard = `BEGIN:VCARD
+// vCard
+function addToContacts() {
+  const vCard = `BEGIN:VCARD
 VERSION:3.0
 FN:C.E.O @precious_couner
 TEL:+255653526556
@@ -158,58 +161,66 @@ EMAIL:dpreciouscouner@gmail.com
 ADR:;;Lumumba Street, Opposite na Mchapakazi;Mwanza;Tanzania
 NOTE:Wauzaji na wasambazaji wa vifaa vya magari
 END:VCARD`;
-      const blob = new Blob([vCard], { type: 'text/vcard' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'dprecious_contact.vcf';
-      document.body.appendChild(a); a.click();
-      document.body.removeChild(a); URL.revokeObjectURL(url);
-    }
+  const blob = new Blob([vCard], { type: 'text/vcard' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'dprecious_contact.vcf';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
 
-    function toggleInstructions() {
-      const box = document.getElementById('instructions');
-      box.style.display = (box.style.display === 'block') ? 'none' : 'block';
-    }
+function toggleInstructions() {
+  const box = document.getElementById('instructions');
+  box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+}
 
-    // Socials
-    function openFacebook(){openAppOrWeb("fb://page/100090000000000","https://www.facebook.com/the_dprecious02");}
-    function openTikTok(){const u="the_dprecious02";openAppOrWeb(`snssdk1233://user/profile/${u}`,`https://www.tiktok.com/@${u}`);}
-    function openSnapchat(){const u="the_dprecious";openAppOrWeb(`snapchat://add/${u}`,`https://www.snapchat.com/add/${u}`);}
-    function openInstagram(){const u="the_dprecious";openAppOrWeb(`instagram://user?username=${u}`,`https://www.instagram.com/${u}`);}
-    function openWhatsApp(){const p="255653526556";openAppOrWeb(`whatsapp://send?phone=${p}`,`https://wa.me/${p}`);}
-    function openEmail(){window.location=`mailto:dpreciouscouner@gmail.com?subject=Inquiry&body=Hello Precious Couner`; }
+// Social functions
+function openAppOrWeb(appUrl, webUrl) {
+  const start = Date.now();
+  window.location = appUrl;
+  setTimeout(() => {
+    if (Date.now() - start < 600) { window.open(webUrl, "_blank"); }
+  }, 500);
+}
 
-    // Location (current)
-    function openLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const {latitude, longitude} = pos.coords;
-          window.open(`https://www.google.com/maps?q=${latitude},${longitude}`,"_blank");
-        }, ()=>alert("Location access denied"));
-      } else { alert("Geolocation not supported"); }
-    }
+function openFacebook(){openAppOrWeb("fb://page/100090000000000","https://www.facebook.com/the_dprecious02");}
+function openTikTok(){const u="the_dprecious02";openAppOrWeb(`snssdk1233://user/profile/${u}`,`https://www.tiktok.com/@${u}`);}
+function openSnapchat(){const u="the_dprecious";openAppOrWeb(`snapchat://add/${u}`,`https://www.snapchat.com/add/${u}`);}
+function openInstagram(){const u="the_dprecious";openAppOrWeb(`instagram://user?username=${u}`,`https://www.instagram.com/${u}`);}
+function openWhatsApp(){const p="255653526556";openAppOrWeb(`whatsapp://send?phone=${p}`,`https://wa.me/${p}`);}
+function openEmail(){window.location=`mailto:dpreciouscouner@gmail.com?subject=Inquiry&body=Hello Precious Couner`; }
 
-    // New functions for call and message
-    function makeCall() {
-      window.location.href = "tel:+255768092780";
-    }
+function openLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(pos => {
+      const {latitude, longitude} = pos.coords;
+      window.open(`https://www.google.com/maps?q=${latitude},${longitude}`,"_blank");
+    }, ()=>alert("Location access denied"));
+  } else { alert("Geolocation not supported"); }
+}
 
-    function sendMessage() {
-      window.location.href = "sms:+255768092780?body=habari C.E.O @Precious_couner";
-    }
+function makeCall() { window.location.href = "tel:+255768092780"; }
+function sendMessage() { window.location.href = "sms:+255768092780?body=habari C.E.O @Precious_couner"; }
 
-    // Loader
-    window.addEventListener("load",()=>{
-      setTimeout(()=>{
-        document.getElementById("loader").style.display="none";
-        document.getElementById("main-content").style.display="flex";
-      },2000);
-    });
+// Loader
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("loader").style.display="none";
+    document.getElementById("main-content").style.display="flex";
+  },2000);
+});
 
-    // Footer year + Theme
-    document.getElementById("year").textContent=new Date().getFullYear();
-    const themes=["default","neon","glow","sporty"]; let i=0;
-    document.getElementById("themeBtn").onclick=()=>{i=(i+1)%themes.length;document.body.className=themes[i];};
-  </script>
+// Footer year + Theme
+document.getElementById("year").textContent=new Date().getFullYear();
+const themes=["default","neon","glow","sporty"]; 
+let i=0;
+
+document.getElementById("themeBtn").onclick=()=>{
+  i=(i+1)%themes.length;
+  document.body.className=themes[i];
+  document.getElementById("main-content").className="container "+themes[i];
+};
+</script>
+
 </body>
 </html>
