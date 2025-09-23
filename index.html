@@ -32,7 +32,7 @@ body {
   display: flex;
   flex-direction: column;
   color: white;
-  transition: background 0.6s ease, color 0.6s ease;
+  overflow-x: hidden;
 }
 main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; padding: 20px; }
 footer { background:#000; color:white; text-align:center; padding:12px 0; font-size:14px; }
@@ -43,17 +43,29 @@ footer { background:#000; color:white; text-align:center; padding:12px 0; font-s
 .loader-dot:nth-child(2){animation-delay:.2s;} .loader-dot:nth-child(3){animation-delay:.4s;}
 @keyframes blink {0%,100%{opacity:0.2;}50%{opacity:1;}}
 
-/* Container styling */
-.container { display:none; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:30px; background:rgba(0,0,0,0.4); border-radius:20px; backdrop-filter:blur(10px); box-shadow:0 8px 20px rgba(0,0,0,0.6); width:100%; max-width:800px; transition: all 0.6s ease; }
+/* Container styling - NO TRANSITION */
+.container { 
+  display:none; 
+  flex-direction:column; 
+  justify-content:center; 
+  align-items:center; 
+  text-align:center; 
+  padding:30px; 
+  background:rgba(0,0,0,0.6); 
+  border-radius:20px; 
+  backdrop-filter:blur(10px); 
+  box-shadow:0 8px 20px rgba(0,0,0,0.6); 
+  width:100%; 
+  max-width:800px; 
+  position: relative;
+}
 
-/* Theme-specific container styles */
-.container.default { background: rgba(0,0,0,0.4); }
-.container.neon { background: rgba(0,30,60,0.6); box-shadow: 0 8px 20px rgba(0,234,255,0.3); }
-.container.glow { background: rgba(26,0,13,0.6); box-shadow: 0 8px 20px rgba(255,64,129,0.3); }
-.container.sporty { background: rgba(15,50,30,0.6); box-shadow: 0 8px 20px rgba(255,215,0,0.3); }
+/* Theme button inside container at top right corner */
+.theme-button { position: absolute; top: 15px; right: 15px; background:#00bfff; border:none; padding:8px 16px; border-radius:6px; color:white; cursor:pointer; transition:.3s; box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index: 10; }
+.theme-button:hover { background:#0099cc; transform:translateY(-2px); }
 
 /* Brand & Header */
-.marquee-container { width:100%; overflow:hidden; margin-bottom:30px; }
+.marquee-container { width:100%; overflow:hidden; margin-bottom:30px; margin-top: 10px; }
 .brand-label { font-size:3rem; font-weight:bold; background:linear-gradient(270deg,#00cc99,#00bfff,#ffdd00,#ff66cc); background-size:600% 600%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradientAnim 8s ease infinite, marquee 15s linear infinite; white-space:nowrap; display:inline-block; }
 @keyframes gradientAnim {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 @keyframes marquee {0%{transform:translateX(100%);}100%{transform:translateX(-100%);} }
@@ -81,15 +93,14 @@ h1 { font-size:2.2rem; margin-bottom:30px; text-shadow:0 2px 5px rgba(0,0,0,0.6)
 .show-instructions{background:#2c3e50; color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; margin-top:15px;}
 .show-instructions:hover{background:#1f2a38;}
 
-/* Theme button */
-#themeBtn{position:fixed; top:15px; right:15px; padding:8px 16px; border:none; border-radius:6px; background:#00cc99; color:white; cursor:pointer;}
-#themeBtn:hover{background:#009977; transform:scale(1.05);}
-
-/* Body themes */
+/* Body themes - ONLY background changes, NO transition */
 body.default{background:linear-gradient(135deg,#1e1e1e,#2c3e50);}
-body.neon{background:linear-gradient(135deg,#000428,#004e92);color:#00eaff;}
-body.glow{background:#1a1a1a;color:#ff4081;}
-body.sporty{background:linear-gradient(135deg,#0f9d58,#4285f4);color:#ffd700;}
+body.neon{background:linear-gradient(135deg,#001f3f,#0074D9);}
+body.glow{background:linear-gradient(135deg,#2d1b69,#8e44ad);}
+body.sporty{background:linear-gradient(135deg,#0a5c36,#1e8449);}
+
+/* Remove ALL transitions from body */
+body { transition: none !important; }
 </style>
 </head>
 <body class="default">
@@ -97,11 +108,15 @@ body.sporty{background:linear-gradient(135deg,#0f9d58,#4285f4);color:#ffd700;}
 <div id="loader"><div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div></div>
 
 <main>
-  <div id="main-content" class="container default" data-aos="fade-up">
+  <div id="main-content" class="container" data-aos="fade-up">
+    <button class="theme-button" onclick="changeTheme()">
+      <i class="fas fa-palette"></i> Theme
+    </button>
+
     <div class="marquee-container">
       <div class="brand-label">Precious_Couner <small><i>"dress. train. shine."</i></small></div>
     </div>
-    <h1>Follow us on our social media</h1>
+    <h1>Follow us on our social media & click phone to download and save our contacts</h1>
 
     <div class="icons" data-aos="zoom-in" data-aos-delay="200">
       <div class="icon-item"><a onclick="openFacebook()"><i class="fab fa-facebook"></i></a><span class="icon-label">Facebook</span></div>
@@ -145,7 +160,6 @@ body.sporty{background:linear-gradient(135deg,#0f9d58,#4285f4);color:#ffd700;}
 </main>
 
 <footer>© <span id="year"></span> precious_couner. All rights reserved.</footer>
-<button id="themeBtn">Theme</button>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
@@ -199,8 +213,30 @@ function openLocation() {
   } else { alert("Geolocation not supported"); }
 }
 
-function makeCall() { window.location.href = "tel:+255768092780"; }
-function sendMessage() { window.location.href = "sms:+255768092780?body=habari C.E.O @Precious_couner"; }
+function makeCall() { window.location.href = "tel:+255653526556"; }
+function sendMessage() { window.location.href = "sms:+255653526556?body=habari C.E.O @Precious_couner"; }
+
+// Theme functionality - SIMPLE and INSTANT
+const themes = ["default", "neon", "glow", "sporty"];
+let currentTheme = 0;
+
+function changeTheme() {
+  currentTheme = (currentTheme + 1) % themes.length;
+  
+  // Store current scroll position
+  const scrollY = window.scrollY;
+  
+  // Change theme instantly
+  document.body.className = themes[currentTheme];
+  
+  // Restore scroll position
+  window.scrollTo(0, scrollY);
+  
+  // Force immediate repaint
+  document.body.style.display = 'none';
+  document.body.offsetHeight; // Trigger reflow
+  document.body.style.display = 'flex';
+}
 
 // Loader
 window.addEventListener("load",()=>{
@@ -210,18 +246,9 @@ window.addEventListener("load",()=>{
   },2000);
 });
 
-// Footer year + Theme
+// Footer year
 document.getElementById("year").textContent=new Date().getFullYear();
-const themes=["default","neon","glow","sporty"]; 
-let i=0;
-
-document.getElementById("themeBtn").onclick=()=>{
-  i=(i+1)%themes.length;
-  document.body.className=themes[i];
-  document.getElementById("main-content").className="container "+themes[i];
-};
 </script>
 
 </body>
 </html>
-
